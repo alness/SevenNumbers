@@ -1,0 +1,8 @@
+../../Classes/AppDelegate.cpp \
+../../Classes/GameScene.cpp \
+../../Classes/Card/AttackCard.cpp \
+../../Classes/Card/CardClass.cpp \
+../../Classes/Card/CardUtil.cpp \
+../../Classes/Card/DefendCard.cpp \
+../../Classes/Card/NumbersCard.cpp \
+../../Classes/User/User.cpp \
