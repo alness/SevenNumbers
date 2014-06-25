@@ -1,5 +1,8 @@
 /*
  * CardUtil.cpp
+ *
+ *  Created on: 2014/05/06
+ *      Author: m.kamata
  */
 
 
@@ -153,16 +156,15 @@ CCPoint CardUtil::getCardPosition(CardClass* pCard,CARD_VIEW_TYPE viewType,int k
 	float cardHeight = 0;
 	if(pCard){
 		CCLog("getCardPosition pCard true");
+
 		cardWidth = pCard->getContentSize().width;
-		CCLog("getCardPosition pCard->getContentSize.width true");
 		cardHeight = pCard->getContentSize().height;
-		CCLog("getCardPosition pCard->getContentSize.height true");
 	}
 
 	CCLog("getCardPosition switch viewType:%d",viewType);
 	switch(viewType){
 	case HAS_CARD:
-		point = CCPoint(cardWidth * (key*0.8) + offsetX,cardHeight * 2 + offsetY);
+		point = CCPoint(cardWidth * (key-1) + offsetX,cardHeight*1.5 + offsetY);
 		break;
 	case FIELD_CARD:
 		offsetY += cardHeight*2;
@@ -174,7 +176,11 @@ CCPoint CardUtil::getCardPosition(CardClass* pCard,CARD_VIEW_TYPE viewType,int k
 	return point;
 }
 
-
+//初期化
+void CardUtil::initCardUtil(){
+	CardUtil::m_allCard.clear();
+	CardUtil::m_allCountUp = 0;
+}
 
 
 

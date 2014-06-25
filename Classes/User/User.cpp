@@ -1,5 +1,8 @@
 /*
  * User.cpp
+ *
+ *  Created on: 2014/05/06
+ *      Author: m.kamata
  */
 
 #include "User.h"
@@ -69,11 +72,6 @@ list<int> User::getFieldCardList(){
 		++it;
 	}
 	return ret;
-}
-
-
-list<CardClass> User::getDeadCard(){
-	return deadCard;
 }
 
 void User::CreateStartHasCard(){

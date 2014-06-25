@@ -1,5 +1,8 @@
 /*
  * Config.h
+ *
+ *  Created on: 2014/05/05
+ *      Author: m.kamata
  */
 
 #ifndef CONFIG_H_

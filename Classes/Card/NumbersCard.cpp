@@ -1,5 +1,8 @@
 /*
  * NumbersCard.cpp
+ *
+ *  Created on: 2014/05/06
+ *      Author: m.kamata
  */
 
 #include "NumbersCard.h"

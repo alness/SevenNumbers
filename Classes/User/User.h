@@ -1,5 +1,8 @@
 /*
  * User.h
+ *
+ *  Created on: 2014/05/06
+ *      Author: m.kamata
  */
 
 #ifndef USER_H_
@@ -16,7 +19,6 @@ private:
 	bool isNpc;
 	std::map<int,CardClass*> hasCard;
 	std::map<int,CardClass*> fieldCard;
-	std::list<CardClass> deadCard;
 public:
 
 	int getUserId();
@@ -24,7 +26,6 @@ public:
 	std::map<int,CardClass*> getHasCard();
 	std::map<int,CardClass*> getFieldCard();
 	std::list<int> getFieldCardList();
-	std::list<CardClass> getDeadCard();
 
 	User(int userId,bool isNpc);
 	virtual ~User();

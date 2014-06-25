@@ -8,6 +8,7 @@
 
 #define BACKGROUND_IMAGE "bg.png"
 #define PASS_IMAGE "pass.png"
+#define RESET_IMAGE "reset.png"
 #define NUMBERS_CARD_NUM 8
 #define ATTACK_CARD_NUM 4
 #define DEFEND_CARD_NUM 4
@@ -30,6 +31,7 @@ protected:
 	enum kTag{
 		kTagBackground = 1,
 		kTagPass = 2,
+		kTagReset = 3,
 		kTagBaseCard = BASE_CARD_TAG,
 
 	};
@@ -37,10 +39,12 @@ protected:
 		kZOrderBackground,
 		kZOrderCard,
 		kZOrderPass,
+		kZOrderReset,
 	};
 
 	cocos2d::CCSprite* m_background;
 	cocos2d::CCSprite* m_pass;
+	cocos2d::CCSprite* m_reset;
 	void showBackground();
 
 	float m_cardHeight;
@@ -50,6 +54,7 @@ protected:
 	void showPlayerCard();
 	void showNpcCard();
 	void showPass();
+	void showReset();
 
 	void actionTauch(cocos2d::CCTouch* pTouch, cocos2d::CCEvent* pEvent);
 

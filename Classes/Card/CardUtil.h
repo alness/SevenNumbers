@@ -1,5 +1,8 @@
 /*
  * CardUtil.h
+ *
+ *  Created on: 2014/05/06
+ *      Author: m.kamata
  */
 
 #ifndef CARDUTIL_H_
@@ -31,6 +34,7 @@ public:
 	static int m_allCountUp;
 	static CardClass* createCard();
 	static cocos2d::CCPoint getCardPosition(CardClass* pCard, CARD_VIEW_TYPE viewType,int key,float addOffsetX,float addOffsetY);
+	static void initCardUtil();
 };
 
 #endif /* CARDUTIL_H_ */

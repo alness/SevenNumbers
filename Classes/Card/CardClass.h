@@ -1,5 +1,8 @@
 /*
  * CardClass.h
+ *
+ *  Created on: 2014/05/05
+ *      Author: m.kamata
  */
 
 #ifndef CARDCLASS_H_

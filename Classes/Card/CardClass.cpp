@@ -1,5 +1,8 @@
 /*
  * CardClass.cpp
+ *
+ *  Created on: 2014/05/05
+ *      Author: m.kamata
  */
 
 

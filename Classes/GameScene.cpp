@@ -1,5 +1,8 @@
 /*
  * GameScene.cpp
+ *
+ *  Created on: 2014/04/23
+ *      Author: m.kamata
  */
 
 #include "GameScene.h"
@@ -45,7 +48,7 @@ bool GameScene::init(){
 
 	CCLog("パスボタン表示");
 	showPass();
-
+	showReset();
 	phase = DRAW_PHASE;
 	//フレーム処理
 	CCLog("フレーム処理");
@@ -93,14 +96,16 @@ void GameScene::playerDraw(){
 	CCLog("playerDraw");
 }
 
+//NPCカードドロー処理
 void GameScene::npcDraw(){
 
-//	int key=0;
-//	pNpc->DrawCard(key);
+	int key=0;
+	//pNpc->DrawCard(key);
 	phase = ACTION_PHASE;
 	CCLog("npcDraw");
 }
 
+//NPC動作処理
 void GameScene::npcAction(){
 
 	CCLog("npcAction start");
@@ -126,6 +131,7 @@ void GameScene::npcAction(){
 	CCLog("npcAction end");
 }
 
+//初期化
 void GameScene::initForVariables(){
 	srand((unsigned)time(NULL)); //乱数初期化
 
@@ -136,6 +142,7 @@ void GameScene::initForVariables(){
 	CCLog("initForVariables");
 }
 
+//背景表示
 void GameScene::showBackground(){
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
 	//背景を生成
@@ -144,10 +151,12 @@ void GameScene::showBackground(){
 	addChild(m_background,kZOrderBackground, kTagBackground);
 }
 
+//プレイヤーカード表示
 void GameScene::showPlayerCard(){
 
 	CCLog("showCard");
-	float offsetX = m_background->getContentSize().width * 0.3;
+	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+	float offsetX = winSize.width * 0.5;
 	float offsetY = 0;
 
 	map<int, CardClass*> hasCard = pPlayer->getHasCard();
@@ -201,7 +210,10 @@ void GameScene::showPlayerCard(){
 	}
 }
 
+//パスボタン表示
 void GameScene::showPass(){
+
+	float offsetX = m_background->getContentSize().width;
 
 	CCPoint point;
 	float passWidth = 0;
@@ -211,16 +223,35 @@ void GameScene::showPass(){
 	passWidth = m_pass->getContentSize().width;
 	passHeight = m_pass->getContentSize().height;
 
-	point = CCPoint( passWidth*2 ,passHeight * 2);
+	point = CCPoint( offsetX-passWidth*2 ,passHeight * 2);
 	m_pass->setPosition(point);
 	m_background->addChild(m_pass,kZOrderPass,kTagPass);
 }
 
+//ﾘｾｯﾄボタン表示
+void GameScene::showReset(){
+
+	float offsetX = m_background->getContentSize().width;
+	CCPoint point;
+	float resetWidth = 0;
+	float resetHeight = 0;
+	m_reset = CCSprite::create(RESET_IMAGE);
+
+	resetWidth = m_reset->getContentSize().width;
+	resetHeight = m_reset->getContentSize().height;
+
+	point = CCPoint(offsetX-resetWidth*2 ,resetHeight * 3);
+	m_reset->setPosition(point);
+	m_background->addChild(m_reset,kZOrderReset,kTagReset);
+}
+
+//NPCカード表示
 void GameScene::showNpcCard(){
 
 	CCLog("showNpcCard");
-	float offsetX = m_background->getContentSize().width * 0.3;
-	float offsetY = m_background->getContentSize().height * 0.7;
+	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+	float offsetX = winSize.width * 0.5;
+	float offsetY = winSize.height*0.8;
 
 	map<int, CardClass*> hasCard = pNpc->getHasCard();
 	map<int, CardClass*>::iterator it = hasCard.begin();
@@ -228,13 +259,12 @@ void GameScene::showNpcCard(){
 	map<int, CardClass*> fieldCard = pNpc->getFieldCard();
 	map<int, CardClass*>::iterator fieldIt = fieldCard.begin();
 
-	//手持ちカードの表示
+	//手持ちカードの表示：DEBUG用
 		CCLog("showCard NpcHasCard");
 		while( it != hasCard.end() )
 		{
 			CardClass *pCard = it->second;
 			CCLog("npcHasCard loop tag:%d",pCard->getTag());
-			offsetY = 300;
 			CCPoint point = CardUtil::getCardPosition(pCard,HAS_CARD,it->first,offsetX,offsetY);
 			CCLog("getChildByTag tag:%d",pCard->getTag());
 			CCNode* pNode = m_background->getChildByTag(pCard->getTag());
@@ -266,10 +296,12 @@ void GameScene::showNpcCard(){
 	}
 }
 
+//タッチ開始処理
 bool GameScene::ccTouchBegan(CCTouch* pTouch, CCEvent* pEvent){
 	return true;
 }
 
+//タッチ終了処理
 void GameScene::ccTouchEnded(CCTouch* pTouch , CCEvent* pEvent){
 
 	switch(phase){
@@ -309,6 +341,16 @@ void GameScene::actionTauch(CCTouch* pTouch , CCEvent* pEvent){
 		nextTurn();
 		phase = DRAW_PHASE;
 		CCLog("パス");
+	}
+
+	//ﾘｾｯﾄボタンあたり判定
+	CCNode* resetNode = m_background->getChildByTag(kTagReset);
+	if(resetNode && resetNode->boundingBox().containsPoint(touchPoint)){
+		//Ver2.x
+		CardUtil::initCardUtil();
+		CCDirector::sharedDirector()->replaceScene(GameScene::scene());
+
+		CCLog("ﾘｾｯﾄ");
 	}
 }
 

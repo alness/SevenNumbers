@@ -1,5 +1,8 @@
 /*
  * AttackCard.h
+ *
+ *  Created on: 2014/05/06
+ *      Author: m.kamata
  */
 
 #ifndef ATTACKCARD_H_
