@@ -15,11 +15,11 @@
 #define CATEGORY_TYPE_COUNT 3
 #define NUMBERS_TYPE_COUNT 7
 #define ATTACK_TYPE_COUNT 2
-#define DEFEND_TYPE_COUNT 3
+#define DEFEND_TYPE_COUNT 2
 
-#define NUMBERS_CARD_NUM 8
-#define ATTACK_CARD_NUM 4
-#define DEFEND_CARD_NUM 4
+#define NUMBERS_CARD_NUM 4
+#define ATTACK_CARD_NUM 3
+#define DEFEND_CARD_NUM 2
 
 class CardUtil {
 private :

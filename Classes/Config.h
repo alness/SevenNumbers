@@ -11,6 +11,7 @@
 #define BASE_CARD_TAG 1000
 
 enum PHASE{
+	DELAY_PHASE=-2,
 	LOAD_PHASE = -1,
 	DRAW_PHASE = 0,
 	ACTION_PHASE = 1,
@@ -41,8 +42,8 @@ enum ATTACK_CARD_ID{
 
 enum DEFEND_CARD_ID{
 	GUARD = 1,
-	PARRY = 2,
-	COUNTER = 3,
+	COUNTER = 2,
+	PARRY = 3,
 };
 
 enum CARD_VIEW_TYPE{

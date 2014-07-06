@@ -31,17 +31,17 @@ bool GameScene::init(){
 	if(!CCLayer::init()){
 		return false;
 	}
-	//タップイベントの取得
+
 	CCLog("タップイベントの取得");
 	setTouchEnabled(true);
 	setTouchMode(kCCTouchesOneByOne);
-	//変数初期化
+
 	CCLog("変数初期化");
 	initForVariables();
-	//背景表示
+
 	CCLog("背景表示");
 	showBackground();
-	//カード表示
+
 	CCLog("カード表示");
 	showPlayerCard();
 	showNpcCard();
@@ -49,6 +49,10 @@ bool GameScene::init(){
 	CCLog("パスボタン表示");
 	showPass();
 	showReset();
+
+	CCLog("カットイン読み込み");
+	loadCutin();
+
 	phase = DRAW_PHASE;
 	//フレーム処理
 	CCLog("フレーム処理");
@@ -63,10 +67,12 @@ void GameScene::update(float delta){
 	switch(phase){
 	case DRAW_PHASE:
 		if(targetPlayerId == 1){
-			playerDraw();
+			phase = DELAY_PHASE;
+			scheduleOnce(schedule_selector(GameScene::playerDraw), 2.0f); //3秒後に実行
 		}
 		else{
-			npcDraw();
+			phase = DELAY_PHASE;
+			scheduleOnce(schedule_selector(GameScene::npcDraw), 3.0f); //3秒後に実行
 		}
 		break;
 	case ACTION_PHASE:
@@ -78,10 +84,26 @@ void GameScene::update(float delta){
 }
 
 void GameScene::nextTurn(){
+
+	//フェード
 	if(targetPlayerId ==1){
+
+		m_cutin_enemy->runAction(
+		CCSequence::create(
+				CCEaseInOut::create(CCFadeTo::create( 1.0f, 255),2),
+				CCEaseInOut::create(CCFadeTo::create( 2.0f, 0),2),
+		        NULL
+		    ));
 		targetPlayerId = 2;
 	}
 	else{
+
+		m_cutin_player->runAction(
+				CCSequence::create(
+						CCEaseInOut::create(CCFadeTo::create( 1.0f, 255),2),
+						CCEaseInOut::create(CCFadeTo::create( 2.0f, 0),2),
+				        NULL
+				    ));
 		targetPlayerId = 1;
 	}
 }
@@ -245,6 +267,28 @@ void GameScene::showReset(){
 	m_background->addChild(m_reset,kZOrderReset,kTagReset);
 }
 
+//カットインボタン読み込み
+void GameScene::loadCutin(){
+
+
+	m_cutin_player = CCSprite::create(CUTIN_PLAYER_IMAGE);
+	m_cutin_enemy = CCSprite::create(CUTIN_ENEMY_IMAGE);
+	float offsetX = m_background->getContentSize().width;
+	CCPoint point;
+	float cutinWidth = 0;
+	float cutinHeight = 0;
+	cutinWidth = m_cutin_enemy->getContentSize().width;
+	cutinHeight = m_cutin_enemy->getContentSize().height;
+
+	point = CCPoint( offsetX-cutinWidth ,cutinHeight * 2);
+	m_cutin_player->setPosition(point);
+	m_cutin_player->setOpacity(0);
+	m_cutin_enemy->setPosition(point);
+	m_cutin_enemy->setOpacity(0);
+	m_background->addChild(m_cutin_player,kZOrderCutin,kTagCutinPlayer);
+	m_background->addChild(m_cutin_enemy,kZOrderCutin,kTagCutinEnemy);
+}
+
 //NPCカード表示
 void GameScene::showNpcCard(){
 
@@ -328,6 +372,7 @@ void GameScene::actionTauch(CCTouch* pTouch , CCEvent* pEvent){
 		CCNode* node = m_background->getChildByTag(currentTag);
 		if(node && node->boundingBox().containsPoint(touchPoint)){
 			if(pPlayer->UseCard(it->first)){
+				showPlayerCard();
 				nextTurn();
 				phase = DRAW_PHASE;
 			}

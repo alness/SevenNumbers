@@ -9,6 +9,8 @@
 #define BACKGROUND_IMAGE "bg.png"
 #define PASS_IMAGE "pass.png"
 #define RESET_IMAGE "reset.png"
+#define CUTIN_PLAYER_IMAGE "cutin/player_turn.png"
+#define CUTIN_ENEMY_IMAGE "cutin/enemy_turn.png"
 #define NUMBERS_CARD_NUM 8
 #define ATTACK_CARD_NUM 4
 #define DEFEND_CARD_NUM 4
@@ -32,6 +34,8 @@ protected:
 		kTagBackground = 1,
 		kTagPass = 2,
 		kTagReset = 3,
+		kTagCutinPlayer = 4,
+		kTagCutinEnemy = 5,
 		kTagBaseCard = BASE_CARD_TAG,
 
 	};
@@ -40,11 +44,14 @@ protected:
 		kZOrderCard,
 		kZOrderPass,
 		kZOrderReset,
+		kZOrderCutin,
 	};
 
 	cocos2d::CCSprite* m_background;
 	cocos2d::CCSprite* m_pass;
 	cocos2d::CCSprite* m_reset;
+	cocos2d::CCSprite* m_cutin_player;
+	cocos2d::CCSprite* m_cutin_enemy;
 	void showBackground();
 
 	float m_cardHeight;
@@ -55,6 +62,7 @@ protected:
 	void showNpcCard();
 	void showPass();
 	void showReset();
+	void loadCutin();
 
 	void actionTauch(cocos2d::CCTouch* pTouch, cocos2d::CCEvent* pEvent);
 
