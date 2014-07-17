@@ -19,6 +19,13 @@ private:
 	bool isNpc;
 	std::map<int,CardClass*> hasCard;
 	std::map<int,CardClass*> fieldCard;
+
+	struct DeleteObject {
+	    template <typename T>
+	    void operator()(const T* ptr) const {
+	        delete ptr;
+	    }
+	};
 public:
 
 	int getUserId();

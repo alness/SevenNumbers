@@ -20,6 +20,15 @@ User::User(int userId,bool isNpc) {
 
 User::~User() {
 
+//	  for (map<int,CardClass*>::iterator it = hasCard.begin(); it != hasCard.end(); ++it) {
+//	        delete (it->second);
+//	    }
+//	  hasCard.clear();
+//
+//	  for (map<int,CardClass*>::iterator it = fieldCard.begin(); it != fieldCard.end(); ++it) {
+//	        delete (it->second);
+//	    }
+//	  fieldCard.clear();
 }
 
 int User::getUserId(){

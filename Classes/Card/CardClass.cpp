@@ -49,7 +49,6 @@ CardClass* CardClass::createCard(CARD_CATEGORY category,int id,int tag){
 
 	if(pCard && pCard->initCard()){
 		CCLog("card autorelease");
-		pCard->autorelease();
 		return pCard;
 	}
 	else{

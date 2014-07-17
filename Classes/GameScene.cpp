@@ -122,7 +122,7 @@ void GameScene::playerDraw(){
 void GameScene::npcDraw(){
 
 	int key=0;
-	//pNpc->DrawCard(key);
+	pNpc->DrawCard(key);
 	phase = ACTION_PHASE;
 	CCLog("npcDraw");
 }
@@ -132,9 +132,7 @@ void GameScene::npcAction(){
 
 	CCLog("npcAction start");
 	bool ret = false;
-	//int randKey =  pNpc->getRandEnableCard(pNpc->getFieldCardList(),pPlayer->getFieldCardList(),phase);
-//	int randKey = rand() % 6 -1;
-	int randKey = -1;
+	int randKey =  pNpc->getRandEnableCard(pNpc->getFieldCardList(),pPlayer->getFieldCardList(),phase);
 
 	if(randKey == -1){
 		CCLog("npcAction パス");
